@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { assets } from "../../assets/assets";
+import { Context } from "../../context/Context";
 
 const Main = () => {
+  const {
+    onSent,
+    recentPrompt,
+    showResult,
+    loading,
+    resultData,
+    setInput,
+    input,
+  } = useContext(Context);
+
   return (
     <div className="h-screen w-full flex flex-col">
       <div className="flex items-center justify-between text-2xl px-6 py-4 text-[#585858]">
@@ -64,6 +75,8 @@ const Main = () => {
         <div className="w-full max-w-[900px] mx-auto px-4 mt-10 mb-6">
           <div className="flex items-center justify-between gap-4 bg-[#f0f4f9] px-6 py-3 rounded-full">
             <input
+              onChange={(e) => setInput(e.target.value)}
+              value={input}
               className="flex-1 bg-transparent border-none outline-none text-[16px]"
               type="text"
               placeholder="Enter a prompt here"
@@ -80,6 +93,7 @@ const Main = () => {
                 alt="mic icon"
               />
               <img
+                onClick={() => onSent()}
                 className="w-6 h-6 cursor-pointer"
                 src={assets.send_icon}
                 alt="send icon"
