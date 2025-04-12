@@ -23,54 +23,88 @@ const Main = () => {
           alt="user icon"
         />
       </div>
-
       <div className="flex-1 flex flex-col justify-end">
-        <div className="max-w-[900px] w-full mx-auto text-center px-4">
-          <div className="mb-12 text-[#c4c7c5] text-[50px] font-medium leading-tight">
-            <p>
-              <span className="text-black">Hello, Dev.</span>
-            </p>
-            <p>How Can I help you today?</p>
-          </div>
+        {!showResult ? (
+          <>
+            <div className="max-w-[900px] w-full mx-auto text-center px-4">
+              <div className="mb-12 text-[#c4c7c5] text-[50px] font-medium leading-tight">
+                <p>
+                  <span className="text-black">Hello, Dev.</span>
+                </p>
+                <p>How Can I help you today?</p>
+              </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="flex justify-between items-center p-4 bg-[#f0f4f9] rounded-2xl cursor-pointer hover:bg-[#e8edf3]">
-              <p className="text-sm text-left">
-                Suggest beautiful places to see on an upcoming road trip
-              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="flex justify-between items-center p-4 bg-[#f0f4f9] rounded-2xl cursor-pointer hover:bg-[#e8edf3]">
+                  <p className="text-sm text-left">
+                    Suggest beautiful places to see on an upcoming road trip
+                  </p>
+                  <img
+                    className="w-5 h-5"
+                    src={assets.compass_icon}
+                    alt="compass icon"
+                  />
+                </div>
+
+                <div className="flex justify-between items-center p-4 bg-[#f0f4f9] rounded-2xl cursor-pointer hover:bg-[#e8edf3]">
+                  <p className="text-sm text-left">
+                    Brief Summarize this concept: urban planning
+                  </p>
+                  <img
+                    className="w-5 h-5"
+                    src={assets.bulb_icon}
+                    alt="bulb icon"
+                  />
+                </div>
+
+                <div className="flex justify-between items-center p-4 bg-[#f0f4f9] rounded-2xl cursor-pointer hover:bg-[#e8edf3]">
+                  <p className="text-sm text-left">
+                    Brainstorm team bonding activities for our work retreat
+                  </p>
+                  <img
+                    className="w-5 h-5"
+                    src={assets.message_icon}
+                    alt="message icon"
+                  />
+                </div>
+
+                <div className="flex justify-between items-center p-4 bg-[#f0f4f9] rounded-2xl cursor-pointer hover:bg-[#e8edf3]">
+                  <p className="text-sm text-left">
+                    Improve the readability of the following code
+                  </p>
+                  <img
+                    className="w-5 h-5"
+                    src={assets.code_icon}
+                    alt="code icon"
+                  />
+                </div>
+              </div>
+            </div>
+          </>
+        ) : (
+          <div className="p-[0px 5%] max-h-[70vh] overflow-y-scroll">
+            <div className="m-[40px 0px] flex items-center gap-5">
               <img
-                className="w-5 h-5"
-                src={assets.compass_icon}
-                alt="compass icon"
+                className="w-[40px] rounded-full"
+                src={assets.user_icon}
+                alt="user icon"
               />
+              <p>{recentPrompt}</p>
             </div>
-
-            <div className="flex justify-between items-center p-4 bg-[#f0f4f9] rounded-2xl cursor-pointer hover:bg-[#e8edf3]">
-              <p className="text-sm text-left">
-                Brief Summarize this concept: urban planning
-              </p>
-              <img className="w-5 h-5" src={assets.bulb_icon} alt="bulb icon" />
-            </div>
-
-            <div className="flex justify-between items-center p-4 bg-[#f0f4f9] rounded-2xl cursor-pointer hover:bg-[#e8edf3]">
-              <p className="text-sm text-left">
-                Brainstorm team bonding activities for our work retreat
-              </p>
-              <img
-                className="w-5 h-5"
-                src={assets.message_icon}
-                alt="message icon"
-              />
-            </div>
-
-            <div className="flex justify-between items-center p-4 bg-[#f0f4f9] rounded-2xl cursor-pointer hover:bg-[#e8edf3]">
-              <p className="text-sm text-left">
-                Improve the readability of the following code
-              </p>
-              <img className="w-5 h-5" src={assets.code_icon} alt="code icon" />
+            <div className="flex items-start gap-5">
+              <img src={assets.gemini_icon} alt="gemini icon" />
+              {loading ? (
+                <div className="w-full flex flex-col gap-2.5">
+                  <hr className="border-4 border-none bg-[#f6f7f8] bg-size-[800px 50px] h-5 " />
+                  <hr className="border-4 border-none bg-[#f6f7f8] bg-size-[800px 50px] h-5 " />
+                  <hr className="border-4 border-none bg-[#f6f7f8] bg-size-[800px 50px] h-5 " />
+                </div>
+              ) : (
+                <p className="text-[17px] font-light" dangerouslySetInnerHTML={{ __html: resultData }}></p>
+              )}
             </div>
           </div>
-        </div>
+        )}
 
         <div className="w-full max-w-[900px] mx-auto px-4 mt-10 mb-6">
           <div className="flex items-center justify-between gap-4 bg-[#f0f4f9] px-6 py-3 rounded-full">

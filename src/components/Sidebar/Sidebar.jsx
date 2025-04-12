@@ -1,8 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { assets } from "../../assets/assets";
+import { Context } from "../../context/Context";
 
 const Sidebar = () => {
   const [extended, setExtended] = useState(false);
+  const {onSent, prevPromts, setRecentPrompt , newChat} = useContext(Context);
+
+  const loadPrompt = async (prompt) => {
+    setRecentPrompt(prompt)
+    await onSent(prompt)
+  }
 
   return (
     <div className="h-screen w-[250px] bg-[#f0f4f9] flex flex-col justify-between p-6">
@@ -13,21 +20,26 @@ const Sidebar = () => {
           src={assets.menu_icon}
           alt="menu icon"
         />
-        <div className="flex items-center gap-2 p-3 bg-[#e6eaf1] rounded-2xl text-sm text-gray-500 cursor-pointer">
+        <div onClick={()=> newChat()} className="flex items-center gap-2 p-3 bg-[#e6eaf1] rounded-2xl text-sm text-gray-500 cursor-pointer">
           <img className="w-4 h-4" src={assets.plus_icon} alt="plus icon" />
           {extended ? <p>New Chat</p> : null}
         </div>
         {extended ? (
           <div className="mt-8">
             <p className="text-gray-600 mb-4">Recent</p>
-            <div className="flex items-start gap-2 p-3 rounded-2xl text-[#282828] cursor-pointer hover:bg-[#e2e6eb]">
+            {prevPromts.map((item, index)=>{
+                return (
+                  <div onClick={()=>loadPrompt(item)} className="flex items-start gap-2 p-3 rounded-2xl text-[#282828] cursor-pointer hover:bg-[#e2e6eb]">
               <img
                 className="w-4 h-4"
                 src={assets.message_icon}
                 alt="message icon"
               />
-              <p>What is React ...</p>
+              <p>{item.slice(0,18)}...</p>
             </div>
+                )
+            })}
+            
           </div>
         ) : null}
       </div>

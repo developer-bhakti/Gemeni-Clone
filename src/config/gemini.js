@@ -10,7 +10,7 @@ const runChat = async (prompt) => {
     contents: prompt,
   });
   console.log(response.text);
-  return response.text();
+  return response.text;
 };
 
 export default runChat;
